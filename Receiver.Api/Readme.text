@@ -1,0 +1,31 @@
+App Inculded
+ 1- Events(Pusblish)
+ In Events we can have multiple subcriber  of Pusblisher's message. (Pub/Sub) pattern
+	E.g When payment is done,You fire event (Parcel prepared),And Message if forward to RabbitMQ broker,
+	and from RabbitMQ consumer of that (Parcel Prepared) queue message will subcribe/listen to it.In this case we have 
+	3 application running,mean multiple listner of pusblisher,1- Stock Update App,2- Invoice App 3- Order processing App
+		exmaple of football match,multiple audicne for one match
+		Order Payment => (Parcel Prepared) =>RabbitMQ => 3 (Parcel Prepared) => 1- Stock Update App,2- Invoice App 3- Order processing App
+ 2- Commands(Send):
+ In commands we have 1 Publisher and 1 Subsriber of that service message.
+ Complete Payment (Main App) => Send email => Message Broker => Send Email => Email Send application
+
+	E.g You complete your payment process in our E-comrece secnario,and You need to send email to Customer.
+	 We have anothe App service which is responible for sending Email service,
+	  Payment service (Send  Email) instruction/data/Message  for the RabbitMQ from Publisher Payment service,
+	  and Email Send Application is listener app ,which is listenting to queue (Send email) message.
+	  when a message will be publish from Publisher service COnsumer service will listen it at.
+	  Here is only 1 subscriber that is Email Send Apllication service
+
+
+ 3- Request Response
+ E.g An Balance Update (main) App which  maintain Custmer's balance ,Differ consumer application for Custmer's balance,
+ //We need some balance update secnario,
+ Suuppose main app send (Balance Update Request) for 500$,And we have another app which is reponsible to Calculation and Everything Process 
+ and  update balance in db and Send Response back to Main Application Customer.This is RequestResponse Secnario.
+
+ Before Coomands and Events we dont wait for Response,Only send Request to RabbitMQ not wait for reponse
+ But In Reuest Reponse pattern we wait for response.
+
+ Coding:
+ 1- First task command(send)
